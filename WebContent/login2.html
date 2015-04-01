@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<script src="js/angular.js"></script>
+  	<script src="js/controllers.js"></script>
+ 	<link rel="stylesheet" type="text/css" href="css/login.css">  
+</head>
+
+<body>
+
+<div id=header  ng-app="phonecatApp">
+	<p1>SocialNetworking</p>
+<div ng-controller="LoginController">
+	<form class="right" >
+		<h1> </h1>
+		Email or UserName:<br >
+		<input type="text" name="username" size="40" ng-model="userdetails.username">
+		<br>
+		Password:<br>
+		<input type="text" name="lastname" size="40" ng-model="userdetails.lastname">
+		<br><br>
+		<input type="button" ng-click="reset()" value="Reset" />
+		<input type="submit" ng-click="update(userdetails)" value="Login" />
+	</form>
+	
+	<pre>form = {{userdetails | json}}</pre>
+  <pre>master = {{userdetailsToValidate | json}}</pre>
+</div>
+</div>
+</body>
+</html>

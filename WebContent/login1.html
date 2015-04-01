@@ -1,0 +1,106 @@
+
+<html>
+<head>
+<style type="text/css">
+
+fieldset{
+	background-color:;
+}
+ 
+div {
+    padding: 7px;	
+    width: 250px;
+    height:140px;
+    margin-left: 1cm;
+    margin-top: 1cm;
+	font-size:15px;
+	
+}
+form fieldset input[type="text"], input[type="password"] {
+	background-color: #e5e5e5;
+	border:none;
+	border-radius:2px;
+	color:black;
+	font-size: 12px;
+	
+	height: 25px;
+	width: 250px;
+	padding: 2px;
+}
+form fieldset input[type="submit"] {
+	background-color: #008dde;
+	border:none;
+	border-radius: 2px;
+	color: #f4f4f4;
+	cursor: pointer;
+	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+	height: 40px;
+	width: 100px;
+	text-transform: uppercase;
+
+}
+
+
+P{
+	
+   	margin-top:1%;
+	margin-bottom:4%;
+	border:none;
+	border-radius: 2px;
+	color: white;
+	font-size:15px;
+}
+a{
+	
+	margin-left: 1cm;
+	text-decoration: none;
+	color: white;
+}
+a:hover{text-decoration: underline;}
+
+# fieldset1{
+	width:100px;
+}
+.login{
+	padding: 0 4px;
+}
+#welcome{
+	font-size:35px;
+	color:White;
+	margin-left:2cm;
+}
+
+</style>
+</head>
+
+<body >
+<p id="welcome">Social networking</p>  	
+<div>
+
+<form action="http://websercvie/validate.jsp" method="GET">
+	<fieldset>
+		<legend style="font-size:30px;">Log in</legend>
+		<p><input type="text" name="username" class="login" placeholder="Email or username"><br></p>
+		<p><input type="password" name="password" placeholder="Password"><br></p>
+		<input type="submit" value="LOGIN">
+		<a href="#">forget password?</a>
+</fieldset>
+</form>
+
+<form>
+	<fieldset>
+		<legend style="font-size:30px;">Sign Up</legend>
+		<p><input type="text" name="text" class="login" placeholder="Fist Name"><br></p>
+		<p><input type="text" name="text" class="login" placeholder="last Name"><br></p>
+		<p><input type="text" name="text" class="login" placeholder="Email"><br></p>		
+		<input type="password" name="password"  placeholder="Password"><br><br>
+		<input type="password" name="Conform Password"  placeholder=" conform Password"><br><br>
+		<p style="margin-left:1.5cm;"><input type="submit" value="SIGNUP"></p>
+		
+	</fieldset>
+
+</div>
+
+
+</body>
+</html>
