@@ -20,11 +20,12 @@
 		<input type="text" name="lastname" size="40" ng-model="userdetails.lastname">
 		<br><br>
 		<input type="button" ng-click="reset()" value="Reset" />
-		<input type="submit" ng-click="update(userdetails)" value="Login" />
+		<input type="submit" ng-click="validate(userdetails)" value="Login" />
 	</form>
 	
-	<pre>form = {{userdetails | json}}</pre>
+	<b>form = {{userdetails }}</b>
   <pre>master = {{userdetailsToValidate | json}}</pre>
+  <b>errormsg = {{errorMsg }}</b>
 </div>
 </div>
 </body>

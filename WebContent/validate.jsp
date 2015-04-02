@@ -8,8 +8,6 @@
 </head>
 request.getParameter("username")
 <body>
-Hello <b> <% String username = request.getParameter("username") 
-%></b>!
-TRUE
+
 </body>
 </html>

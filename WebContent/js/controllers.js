@@ -8,18 +8,30 @@ phonecatApp.controller('LoginCtrl', function ($scope) {
          'password' : 'Fast just got faster with Nexus S.'}];
 });
 
-phonecatApp.controller('LoginController', ['$scope', function($scope) {
+
+phonecatApp.controller('LoginController', ['$scope','$http', function($scope, $http) {
     $scope.userdetailsToValidate = {};
     $scope.userValidated = false;
+    $scope.errorMsg ="No Error";
 
     $scope.update = function(userdetails) {
       $scope.userdetailsToValidate = angular.copy(userdetails);
     };
 
-    $scope.validate = function(userdetails) {
+    $scope.validate = function(userdetails) {    
+    	$scope.errorMsg="Invoking request";
+  
+    	$http({
+    	    method: 'POST',
+    	    url: 'http://localhost:8080/WebApp/loginkaro',
+    	    data: $.param({username:'jawahar'}),
+    	    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+    	}).success(function(response) {
+        	$scope.errorMsg = response;
+        });
     	
-        $scope.userValidated = true;
-      };
+    	};
+      
     $scope.reset = function() {
       $scope.userdetails = angular.copy($scope.userdetailsToValidate);
     };
