@@ -2,12 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <display-name>WebApp</display-name>
   <welcome-file-list>
-    <welcome-file>Frame1.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>login.html</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>hello</servlet-name>
@@ -17,13 +12,41 @@
     <servlet-name>login</servlet-name>
     <servlet-class>com.nayak.launch.LoginServlet</servlet-class>
   </servlet>
+  <servlet>
+      <servlet-name>image</servlet-name>
+      <servlet-class>com.social.network.servlet.ImageServlet</servlet-class>
+  </servlet>
+  <servlet>
+      <servlet-name>mainwall</servlet-name>
+      <servlet-class>com.nayak.launch.MainWallServlet</servlet-class>
+  </servlet>
+  <servlet>
+		<servlet-name>Jersey Web Application</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<init-param>
+		    <param-name>com.sun.jersey.config.property.packages</param-name>
+		    <param-value>com.social.network.rest</param-value>
+		</init-param>		
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Jersey Web Application</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
   <servlet-mapping>
     <servlet-name>hello</servlet-name>
     <url-pattern>/hello</url-pattern>
   </servlet-mapping>
    <servlet-mapping>
     <servlet-name>login</servlet-name>
-    <url-pattern>/loginkaro</url-pattern>
+    <url-pattern>/login</url-pattern>
   </servlet-mapping>
-
+	<servlet-mapping>
+	    <servlet-name>mainwall</servlet-name>
+    	<url-pattern>/mainwall</url-pattern>    
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>image</servlet-name>
+    	<url-pattern>/image/*</url-pattern>    
+	</servlet-mapping>
 </web-app>

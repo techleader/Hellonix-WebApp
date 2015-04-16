@@ -1,6 +1,12 @@
-var phonecatApp = angular.module('phonecatApp', []);
+var app = angular.module('socialNetwork', []);
 
-phonecatApp.controller('LoginCtrl', function ($scope) {
+	app.config(['$httpProvider', function($httpProvider) {
+	        $httpProvider.defaults.useXDomain = true;
+	        delete $httpProvider.defaults.headers.common['X-Requested-With'];
+	    }
+	]);
+	
+app.controller('LoginCtrl', function ($scope) {
   $scope.details = [
     {'`': 'Nexus S',
      'password' : 'Fast just got faster with Nexus S.'} ,
@@ -9,10 +15,13 @@ phonecatApp.controller('LoginCtrl', function ($scope) {
 });
 
 
-phonecatApp.controller('LoginController', ['$scope','$http', function($scope, $http) {
+app.controller('LoginController', ['$scope','$http', function($scope, $http) {
+
+
     $scope.userdetailsToValidate = {};
     $scope.userValidated = false;
     $scope.errorMsg ="No Error";
+    $scope.friendlist="Friend List";
 
     $scope.update = function(userdetails) {
       $scope.userdetailsToValidate = angular.copy(userdetails);
@@ -21,19 +30,62 @@ phonecatApp.controller('LoginController', ['$scope','$http', function($scope, $h
     $scope.validate = function(userdetails) {    
     	$scope.errorMsg="Invoking request";
   
-    	$http({
-    	    method: 'POST',
-    	    url: 'http://localhost:8080/WebApp/loginkaro',
-    	    data: $.param({username:'jawahar'}),
-    	    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-    	}).success(function(response) {
-        	$scope.errorMsg = response;
-        });
-    	
+    	$http.get('http://localhost:8080/RestSocialNetwork/userprofile')
+    	.success(function(response) {
+        	$scope.errorMsg = response.userName;
+        });    	
     	};
       
+    $scope.getfriendlist = function() {    
+        	$scope.friendlist="Invoking request";      
+        	$http.get('http://localhost:8080/RestSocialNetwork/friendlist')
+        	.success(function(response) {
+            	$scope.friendlist = response;
+            });        	
+        	};
+    	
     $scope.reset = function() {
       $scope.userdetails = angular.copy($scope.userdetailsToValidate);
     };
     $scope.reset();
   }]);
+  
+  
+
+app.controller('TabController', ['$scope','$http', function($scope, $http){
+    this.tab = 1;
+    this.setTab = function(newValue){
+      this.tab = newValue;
+    };
+
+    this.isSelected = function(tabName){
+      return this.tab === tabName;
+    };
+    
+    getfriendlist = function() {    
+    	this.friendlst="Invoking request";      
+    	$http.get('http://localhost:8080/RestSocialNetwork/friendlist')
+    	.success(function(response) {
+    		$scope.friendlist = response;
+        }); 
+    	return friendlst;
+    	};
+    	
+  }]);
+
+
+app.controller('FriendsController', ['$scope','$http', function($scope, $http){ 
+    getfriendlist = function() {    
+    	this.friendlst="Invoking request";      
+    	$http.get('http://localhost:8080/RestSocialNetwork/friendlist')
+    	.success(function(response) {
+    		$scope.friendlist = response;
+        }); 
+    	return friendlst;
+    	};    	
+  }]);
+
+app.controller('FriendsController2', function($scope, $http) {
+    $http.get("http://localhost:8080/RestSocialNetwork/friendlist")
+    .success(function(response) {$scope.friendlistResponse = response;});
+});

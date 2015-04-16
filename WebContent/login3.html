@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  	<script src="js/angular.js"></script>
+  	<script src="js/controllers.js"></script>
+ 	<!-- <link rel="stylesheet" type="text/css" href="css/login.css">   -->
+ 	 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+ 	 <meta name=“viewport” content=“width=590”>
+  </head>
+
+<body>
+<div ng-app="phonecatApp">
+<div ng-controller="LoginController">
+
+<form class="container">
+	<fieldset>
+		<legend style="font-size:30px;">Log in</legend>
+		<p><input type="text" name="username" class="form-control"  placeholder="Email or username" ng-model="userdetails.username"><br></p>
+		<p><input type="password" name="password" class="form-control"  placeholder="Password" ng-model="userdetails.password"><br></p>
+		<a href="#">forget password?</a>
+		<input type="submit" class="btn btn-success" ng-click="validate(userdetails)" value="LOGIN">
+		<p>{{userdetails.username}}</p>
+		<p ng-bind="userdetails.username"></p>
+		<p>{{errorMsg}}</p>
+</fieldset>
+</form>
+
+<form>
+	<fieldset>
+		<legend style="font-size:30px;">Sign Up</legend>
+		<p><input type="text" name="text" class="login" placeholder="Fist Name"><br></p>
+		<p><input type="text" name="text" class="login" placeholder="last Name"><br></p>
+		<p><input type="text" name="text" class="login" placeholder="Email"><br></p>		
+		<input type="password" name="password"  placeholder="Password"><br><br>
+		<input type="password" name="Conform Password"  placeholder=" conform Password"><br><br>
+		<p style="margin-left:1.5cm;"><input type="submit" value="SIGNUP"></p>
+		
+	</fieldset>
+</div>
+</div>
+
+
+</body>
+</html>
