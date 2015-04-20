@@ -28,20 +28,22 @@ app.controller('LoginController', ['$scope','$http', function($scope, $http) {
     };
 
     $scope.validate = function(userdetails) {    
-    	$scope.errorMsg="Invoking request";
-  
-    	$http.get('http://localhost:8080/RestSocialNetwork/userprofile')
+    	$http.get('http://localhost:8080/RestSocialNetwork/isValidUser?username=' + userdetails.username + '&password=' + userdetails.password)
     	.success(function(response) {
-        	$scope.errorMsg = response.userName;
-        });    	
+        	$scope.errorMsg = response;
+        }).error(function(data, status, headers, config) {
+        	$scope.errorMsg = "Request Failed" + status + ' : ' + 'http://localhost:8080/RestSocialNetwork/isValidUser?username=' + userdetails.username + '&password=' + userdetails.password ;
+          });;   	
     	};
       
-    $scope.getfriendlist = function() {    
-        	$scope.friendlist="Invoking request";      
-        	$http.get('http://localhost:8080/RestSocialNetwork/friendlist')
+    $scope.registerUser = function(userSignUp) {    
+        	$scope.response="Invoking request";      
+        	$http.get('http://localhost:8080/RestSocialNetwork/addUserProfile?name='+userSignUp.name)
         	.success(function(response) {
-            	$scope.friendlist = response;
-            });        	
+            	$scope.response = "Successfully Registered";
+            }).error(function(data, status, headers, config) {
+            	$scope.errorMsg = 'Registeration failed' ;
+            });;         	
         	};
     	
     $scope.reset = function() {
@@ -88,4 +90,17 @@ app.controller('FriendsController', ['$scope','$http', function($scope, $http){
 app.controller('FriendsController2', function($scope, $http) {
     $http.get("http://localhost:8080/RestSocialNetwork/friendlist")
     .success(function(response) {$scope.friendlistResponse = response;});
+});
+
+app.controller('TimelineController',function($scope,$http){
+	$http.get("http://localhost:8080/RestSocialNetwork/timeline")
+	.success(function(response) {$scope.timelineResponse=response;});
+});
+
+
+app.controller('personCtrl', function($scope) {    
+    $scope.myVar = true;
+    $scope.toggle = function() {
+        $scope.myVar = !$scope.myVar;
+    };
 });
