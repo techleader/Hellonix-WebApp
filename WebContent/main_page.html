@@ -1,0 +1,112 @@
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+	background:;
+}
+#myH1 {
+    text-shadow:5px 5px 10px black;
+    margin-top: 0.7cm;
+}
+#column {
+	background-color: lavender;
+}
+
+#search {
+	margin-left:0.2cm;
+	}
+
+#icon {
+	border: px solid black;
+}
+
+#col1 {
+	background-color: white;
+	border: 1px solid black;
+}
+</style>
+</head>
+
+<div ng-controller="TabController as panel">
+		<div class=" col-sm-3 col-md-3 col-lg-3" id="column">
+			<p class="text-center" id="myH1">HalonixBook</p>
+		</div>
+		<div class=" col-sm-9 col-md-9 col-lg-9" id="column">
+			<div style="margin-top: 0.4cm">
+				<section>
+					<ul class="nav nav-pills" style="margin-left: 3cm">
+						<li ng-class="{active:panel.isSelected(1)}"><a href
+							ng-click="panel.setTab(1)"> <span
+								class="glyphicon glyphicon-home"></span> Home
+						</a></li>
+						<li ng-class="{active:panel.isSelected(2)}"><a href
+							ng-click="panel.setTab(2)"> <span
+								class="glyphicon glyphicon-user"></span> Profile
+						</a></li>
+						<li ng-class="{active:panel.isSelected(3)}"><a href
+							ng-click="panel.setTab(3)"> <span
+								class="glyphicon glyphicon-th-list"></span> Friends
+						</a></li>
+						<li ng-class="{active:panel.isSelected(4)}"><a href
+							ng-click="panel.setTab(4)"> <span
+								class="glyphicon glyphicon-envelope"></span> Message
+						</a></li>
+						<li ng-class="{active:panel.isSelected(5)}"><a href
+							ng-click="panel.setTab(5)"> <span
+								class="glyphicon glyphicon-list"></span> online
+						</a></li>
+
+						<li id="search">
+							<form class="form-inline">
+								<div class="form-group has-feedback">
+									<div class="input-group">
+										<input class="form-control" type="text" placeholder="Search friends">
+										<label class="glyphicon glyphicon-search form-control-feedback"></label>
+									</div>
+								</div>
+							</form>
+						</li>
+						
+						<ul class="nav nav-pills " style="margin-left:0.1cm">
+							<li role="presentation" class="dropdown"><a
+								class="dropdown-toggle" data-toggle="dropdown" href="#"
+								role="button" aria-expanded="true"> Setting 
+								<span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+								<li ><a href="#">active</a></li>
+								<li><a href="#" data-toggle="tab">setting</a></li>
+								<li><a href="#" data-toggle="tab">create apge</a></li>
+								<li class="divider"></li>
+								<li ><a href="#" data-toggle="tab">logout</a></li>
+								
+								</ul></li>
+						</ul>
+					</ul>
+					
+			</div>
+		</div>
+		<br>
+		<br>
+	<div class="panel" ng-show="panel.isSelected(1)">
+				<iframe width="100%" height="2000px" src="#Home" name="iframe_a"></iframe>
+				
+			</div>
+			<div class="panel" ng-show="panel.isSelected(2)">
+				<iframe width="100%" height="1000px" src="profile.html" name="iframe_a"></iframe>
+
+			</div>
+
+			<div class="row" ng-show="panel.isSelected(3)">
+				
+					<iframe width="100%" height="1000px" src="friends.html" name="iframe_a"></iframe>
+					
+				</div>
+
+			<div class="row" ng-show="panel.isSelected(4)">
+				<div class="embed-responsive embed-responsive-16by9">
+  						<iframe class="embed-responsive-item" src="friends.html"></iframe>
+				</div>
+			</div>
+</div>
+

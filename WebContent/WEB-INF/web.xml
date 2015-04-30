@@ -3,9 +3,10 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
+	
 	<display-name>WebApp</display-name>
 	<welcome-file-list>
-		<welcome-file>login.html</welcome-file>
+		<welcome-file>main.html</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>hello</servlet-name>
@@ -36,6 +37,7 @@
 		<servlet-name>UploadServlet</servlet-name>
 		<servlet-class>com.social.network.servlet.UploadServlet</servlet-class>
 	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>Jersey Web Application</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
