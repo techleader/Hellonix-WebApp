@@ -1,25 +1,55 @@
-var app = angular.module('socialNetwork', [ 'ngRoute' ]);
+var app = angular.module('socialNetwork', [ 'ngRoute','route-segment', 'view-segment' ]);
 
-app.config([ '$routeProvider', function($routeProvider) {
-	$routeProvider.when('/Login', {
-		templateUrl : 'login.html',
-		controller : 'LoginController'
-	}).when('/ShowUserTimeline', {
-		templateUrl : 'main_page.html',
-		controller : 'TabController'			
-	}).when('/Home', {
-		templateUrl : 'home.html',
-		controller : 'TabController'			
-	}).otherwise({
-		redirectTo : '/Login'
-	});
-} ]);
+app.config(function ($routeSegmentProvider) {
+	$routeSegmentProvider.when('/Login','login')	
+	.segment('login', {
+        templateUrl: 'login.html',
+        controller: 'LoginController'});
+	
+	$routeSegmentProvider
+	.when('/Main','main')
+	.when('/Main/Home','main.home')
+	.when('/Main/Profile','main.profile')
+	.when('/Main/Profile/About','main.profile.about')
+	.when('/Main/Profile/Timeline','main.profile.timeline')
+	
+	.segment('main', {
+        templateUrl: 'main_page.html',
+        controller: 'TabController'}).        
+        within().
+        segment('home', {
+            templateUrl: 'home.html',
+            controller: 'TabController'}).
+        segment('profile', {
+            templateUrl: 'profile.html',
+            controller: 'TabController'}).
+            
+            within().
+            segment('about', {
+            	templateUrl: 'about.html'}).
+            segment('timeline', {
+            	templateUrl: 'Timeline.html',
+            	untilResolved: { templateUrl: 'loading.html'}})
+            
+            	;
+
+});
+
 
 app.config([ '$httpProvider', function($httpProvider) {
 	$httpProvider.defaults.useXDomain = true;
 	delete $httpProvider.defaults.headers.common['X-Requested-With'];
 } ]);
 
+app.controller('MainCtrl', function($scope, $routeSegment, loader) {
+
+    $scope.$routeSegment = $routeSegment;
+    $scope.loader = loader;
+
+    $scope.$on('routeSegmentChange', function() {
+        loader.show = false;
+    })
+});
 
 app.controller('LoginController',	[ '$scope',	 '$http','$location', function($scope, $http,$location) {
 	
@@ -49,7 +79,7 @@ app.controller('LoginController',	[ '$scope',	 '$http','$location', function($sc
 						 .success(
 								 function(response) {
 									 $scope.errorMsg = "Login successfull";
-									 $location.path('/ShowUserTimeline');
+									 $location.path('/Main/Home');
 									 this.userId=response;
 								 })
 								 .error(
@@ -62,10 +92,7 @@ app.controller('LoginController',	[ '$scope',	 '$http','$location', function($sc
 			 };
 
 			 $scope.registerUser = function(userSignUp) {
-
-				 $http
-				 .get(
-						 'http://localhost:8080/RestSocialNetwork/addUserProfile?username='
+				 $http.get( 'http://localhost:8080/RestSocialNetwork/addUserProfile?username='
 						 + userSignUp.name
 						 + '&email='
 						 + userSignUp.email
@@ -89,10 +116,7 @@ app.controller('LoginController',	[ '$scope',	 '$http','$location', function($sc
 			 $scope.reset();
 		 } ]);
 
-app.controller('TabController', [
-		'$scope',
-		'$http',
-		function($scope, $http) {
+app.controller('TabController', ['$scope','$http','$location',function($scope, $http,$location) {
 			this.tab = 1;
 			this.setTab = function(newValue) {
 				this.tab = newValue;
@@ -101,16 +125,10 @@ app.controller('TabController', [
 			this.isSelected = function(tabName) {
 				return this.tab === tabName;
 			};
-
-			getfriendlist = function() {
-				this.friendlst = "Invoking request";
-				$http.get('http://localhost:8080/RestSocialNetwork/friendlist')
-						.success(function(response) {
-							$scope.friendlist = response;
-						});
-				return friendlst;
+			this.showPanel=function(requestUri){
+				$location.path(requestUri);
 			};
-
+			
 		} ]);
 
 app.controller('FriendsController', [
@@ -134,20 +152,9 @@ app.controller('FriendsController2', function($scope, $http) {
 			});
 });
 
-app
-		.controller(
-				'CommentController',
-				[
-						'$scope',
-						'$http',
-						function($scope, $http) {
-
-							$scope.userComment = function(statusComment, t,
-									userName) {
-
-								$http
-										.get(
-												"http://localhost:8080/RestSocialNetwork/addCommentToTimeline?comment="
+app.controller('CommentController',['$scope','$http',function($scope, $http) {$scope.userComment = function(statusComment, t,userName)
+	{
+			$http.get("http://localhost:8080/RestSocialNetwork/addCommentToTimeline?comment="
 														+ statusComment.comment
 														+ "&username="
 														+ userName
@@ -155,14 +162,11 @@ app
 										.success(function(response) {
 											t = response;
 										})
-										.error(
-												function(data, status, headers,
-														config) {
+										.error(function(data, status, headers,config) {
 													$scope.timelineResponse = 'Registeration failed';
 												});
 							};
-							$scope.likeComment = function(commentid,
-									timelineid, username) {
+							$scope.likeComment = function(commentid,timelineid, username) {
 								$http.get(
 										"http://localhost:8080/RestSocialNetwork/likeComment?commentid="
 												+ commentid + "&username="
@@ -175,8 +179,7 @@ app
 
 							$scope.likeTimeline = function(timelineid, userame) {
 								$scope.timelineResponse = 'started';
-								$http.get(
-										"http://localhost:8080/RestSocialNetwork/likeTimeline?username="
+								$http.get("http://localhost:8080/RestSocialNetwork/likeTimeline?username="
 												+ username + "&timelineid="
 												+ timelineid).success(
 										function(response) {
@@ -184,19 +187,14 @@ app
 										});
 							};
 							$scope.addTimeline = function(status, username) {
-								$http
-										.get(
+								$http.get(
 												"http://localhost:8080/RestSocialNetwork/addTimeLine?status="
 														+ status + "&username="
 														+ username)
 										.success(
 												function(response) {
-													$http
-															.get(
-																	"http://localhost:8080/RestSocialNetwork/listAllTimeLines")
-															.success(
-																	function(
-																			response) {
+													$http.get("http://localhost:8080/RestSocialNetwork/listAllTimeLines")
+															.success(function(response) {
 																		$scope.timelines = response;
 																	});
 												});
