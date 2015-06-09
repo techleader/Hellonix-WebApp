@@ -1,18 +1,17 @@
 
-
 <style>
 body {
-	background-image: url(images/login_image.jpg)
+	background-image: url(images/black.jpg)
 }
 
 #hello {
-	color: black;
-	padding: 1px;
+	color:white;
+	
 }
 
 #bdr {
 	border: 1px solid white;
-	background-color:;
+	/*  background-image:url(images/333.jpg); */
 	padding: 1cm;
 	border-radius: 10%;
 	padding-top: cm;
@@ -34,13 +33,9 @@ body {
 	color: white;
 }
 </style>
-<meta http-equiv="Content-Type" content="text/html" ; charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
 
 <title>Login page</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="js/angular.js"></script>
-<script src="js/controllers.js"></script>
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <script
@@ -51,27 +46,35 @@ body {
 	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
 </head>
-
-
-	<div class="container-fluid">
-		<div class="row">
-			<div class="jumbotron" id="hello">
-				<h2 class="container">My first Bootstrap website!</h2>
-
-			</div>
-		</div>
-		<br>
-
+<div ng-controller="personCtrl">
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+    		<a class="navbar-brand" href="#"style="margin-left:4cm;" id="hello">HellonixNetwork</a>
+    	</div>
+     	<ul class="nav navbar-nav navbar-right">
+     	<li><a href="#" id="hello"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="#" id="hello"><span class="glyphicon glyphicon-sign-out"></span> Signup</a></li></div>
+     </ul>
+    </div>
+ </nav>
+<div class="container-fluid">
 		<div>
-			<div class="row" ng-controller="personCtrl">
+			<div class="row" >
 				<div ng-controller="LoginController">
-					<div class="col-sm-7 col-md-7 col-lg-7"></div>
+					<div class="col-sm-7 col-md-7 col-lg-7">
+						<div style="margin-left:5cm;margin-top:2cm;color:white">
+							<h1 style="font-size:300%">Welcome to Hellonix</h1>
+							<h4>A great way to keep in touch with professionals outside the team</h4>
+							<h4>Help in bulding workplace newtwork and increase </h4>
+							<h4>the visibility inside the company</h4>
+						</div>
+						
+					</div>
 
-					<div class="col-sm-3 col-md-3 col-lg-3" id="bdr">
+					<div class="col-sm-3 col-md-3 col-lg-3" id="bdr" style="margin-top:1cm">
 						<form class="form-group has-success">
 							<div ng-show="doLogin">
-								<!--<div><img src="1.jpg" alt="login" width="100" height="100" Style="margin-left:3.5cm;">
-		</div><br>-->
 								<h1 class="text-center" style="color: white" id="font">
 									<p class="glyphicons glyphicons-user-key"></p>
 									Login
@@ -133,18 +136,6 @@ body {
 
 			<div class="col-sm-3 col-md-3 col-lg-3"></div>
 		</div>
-		<br>
-		<!--.................................Sign in.............................................-->
-		<div class="row">
-			<div class="col-sm-5 col-md-5 col-lg-5""></div>
-			<div class="col-sm-4 col-md-4 col-lg-4" style="background-color:">
-
-
-			</div>
-			<div class="col-sm-3 col-md-3 col-lg-3" style="background-color:;">
-
-			</div>
-		</div>
+		<br>	
 	</div>
-	</div>
-
+</div>

@@ -1,15 +1,14 @@
-
 <style>
-body{
-   background-color:;
-}
-#image_size{
-	
+
+#profile{	
+	width:71%;
+	margin-left:2.3cm;
+	 border-radius:3px;
 }
 #about{
-margin-:cm;
-background-color:;
-border:1px ;
+	margin-:cm;
+	background-color:;
+	border:1px ;
 }
 #col1{
 	background-color:lavender;
@@ -23,34 +22,52 @@ border:1px ;
 	margin-top:.4cm;
 	border-radius:10px;
 }
-
+/* img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+} */
 </style>
 
-
 <div ng-controller="TabController as panel">
-
-
-<div class=="row">
-<div class="col-sm-12 col-md-12 col-lg-12" style="background-color:la;" id="image_size">
-<img src="images/333.jpg" width="100%" height="40%" style="border:1px solid black">
+	
+	
+<div class="container" >
+	  <!-- <img style="background-image:url(images/black.jpg);height=50%"></div> -->
+ <div class="row" style="background-color:white" id="profile">
+     <div class="col-md-9">
+          <div class="row">
+          	 <div class="col-md-5" ><img src="images/raj.JPG" width="220" height="200"></div>
+                <div class="col-md-7">
+                    <h3>Rajesh nayak<a href ><div class="glyphicon glyphicon-pencil"></div></a></h3>
+                   <h5>Sotware Engineer at hellonix soft <a href ><div class="glyphicon glyphicon-pencil"></div></a></h5>
+                  <h5>Udaipur, Rajesthan, India<a href ><div class="glyphicon glyphicon-pencil"></div></a></h5>
+                 
+                  <h5>Education: University of kota<a href ><div class="glyphicon glyphicon-pencil"></div></a></h5>
+                   
+                </div>
+           </div>
+      </div>
+</div>
+<div class="row" style="width:71%;background-color:#19181C;margin-left:2.3cm">
+		<div class="col-sm-9">   
+		    <ul class="nav nav-pills" style="margin-left:5cm">
+				<li ng-class="{active:panel.isSelected(1)}">
+		        	<a href ng-click="panel.setTab(1);panel.showPanel('/Main/Profile/About')">About</a>
+		        </li>
+		        <li ng-class="{active:panel.isSelected(2)}">
+		        	<a href ng-click="panel.setTab(2);panel.showPanel('/Main/Profile/Timeline')" >Connections</a>
+		        </li>
+		        <li><a href="">Groups</a></li>
+		        <li><a href="">Followings</a></li>  
+		   </ul>
+		</div>
 </div>
 
-
-<div class=="row ">
-<div class="col-sm-9 col-md-9 col-lg-9" id="about" style="background-color:#5C5B66;" >
-<ul class="nav nav-pills" style="margin-left:8cm" >		
-        <li ng-class="{active:panel.isSelected(1)}"><a href ng-click="panel.setTab(1);panel.showPanel('/Main/Profile/About')">About</a></li>
-        <li ng-class="{active:panel.isSelected(2)}"><a href ng-click="panel.setTab(2);panel.showPanel('/Main/Profile/Timeline')" >Timeline</a></li>
-        <li><a href="">photos</a></li>
-         <li><a href="">video</a></li>  
-          <li><a href="">Group</a></li>
-          <li><a href="">Event</a></li>         
-      </ul>
-      
-</div>					
-</div><br><br>
+				
+</div><br>
  <div id="contents" app-view-segment="2"></div>
- 
-		
+ 	
 </div>
-</div>
+

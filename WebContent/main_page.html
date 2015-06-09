@@ -1,9 +1,25 @@
+<head>
+<style>
+	body{
+   background-image:url(images/back.jpg);
+}
+#search {
+	margin-top:0.1cm;
+	margin-left:2cm;
+	}
+#helsonet{
+	margin-left:1cm;
+	color: white;
+    text-shadow: 1px 1px 2px red, 0 0 25px blue, 0 0 5px darkblue;
+}	
+</style>
+</head>
 
 <div ng-controller="TabController as panel">
 <nav class="navbar navbar-inverse">
 <div class="container-fluid">
 	<div class="navbar-header">
-    	<a class="navbar-brand" href="#">HalonixBook</a>
+    	<a class="navbar-brand" href="#" id="helsonet"><b>HelSoNet</b></a>
     </div>
     
     <div>
@@ -18,16 +34,16 @@
         	<span class="glyphicon glyphicon-user"></span> Profile</a>
         </li>
         <li ng-class="{active:panel.isSelected(3)}">
-        	<a href ng-click="panel.setTab(3)">
-        	<span class="glyphicon glyphicon-th-list"></span> Friends</a>
+        	<a href ng-click="panel.setTab(3); panel.showPanel('/Main/Connections')">
+        	<span class="glyphicon glyphicon-th-list"></span>Requests</a>
         </li>
-       	<li ng-class="{active:panel.isSelected(4)}">
-       		<a href ng-click="panel.setTab(4)">
-       		<span class="glyphicon glyphicon-envelope"></span> Message</a>
+       	<li role="presentation" ng-class="{active:panel.isSelected(4)}">
+       		<a href ng-click="panel.setTab(4); panel.showPanel('/Main/Messages')"">
+       		<span class="glyphicon glyphicon-envelope"></span> Messages <span class="badge">3</span></a>
        	</li>
 		<li ng-class="{active:panel.isSelected(5)}">
        		<a href ng-click="panel.setTab(5)">
-       		<span class="glyphicon glyphicon-list"></span> Online</a>
+       		<span class="glyphicon glyphicon-list"></span>Notification</a>
        </li>
        <li id="search">
 			<form class="form-inline">
@@ -54,7 +70,7 @@
   </div>
 </nav>
 
- <div app-view-segment="1" class="anim">No item selected.</div>
+<div id="contents" app-view-segment="1"></div>
  
 <!-- 	<div class="panel" ng-show="panel.isSelected(1)">
 		<iframe width="100%" height="2000px" src="#Home" name="iframe_a"></iframe>

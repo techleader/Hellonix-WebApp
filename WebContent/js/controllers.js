@@ -9,9 +9,14 @@ app.config(function ($routeSegmentProvider) {
 	$routeSegmentProvider
 	.when('/Main','main')
 	.when('/Main/Home','main.home')
+	.when('/Main/Home/Timeline','main.home.timeline')
+	.when('/Main/Home/Connections','main.home.connections')
 	.when('/Main/Profile','main.profile')
 	.when('/Main/Profile/About','main.profile.about')
 	.when('/Main/Profile/Timeline','main.profile.timeline')
+	.when('/Main/Profile/Timeline/UploadImage','main.profile.timeline.uploadimage')
+	.when('/Main/Connections','main.connections')
+	.when('/Main/Messages','main.messages')
 	
 	.segment('main', {
         templateUrl: 'main_page.html',
@@ -20,18 +25,33 @@ app.config(function ($routeSegmentProvider) {
         segment('home', {
             templateUrl: 'home.html',
             controller: 'TabController'}).
+            within().
+	        	segment('timeline', {
+	        		templateUrl: 'Timeline.html',
+	        		untilResolved: { templateUrl: 'loading.html'}}).
+	        	segment('connections', {
+	                templateUrl: 'friends.html',
+	                controller: 'FriendsController2'}).
+	        up().	
+	        segment('messages', {
+                templateUrl: 'messages.html'}).
+	        segment('connections', {
+                templateUrl: 'friends.html',
+                controller: 'FriendsController2'}).
         segment('profile', {
             templateUrl: 'profile.html',
             controller: 'TabController'}).
-            
             within().
             segment('about', {
-            	templateUrl: 'about.html'}).
+            	templateUrl: 'about.html',
+            	controller: 'personCtrl'}).
             segment('timeline', {
             	templateUrl: 'Timeline.html',
-            	untilResolved: { templateUrl: 'loading.html'}})
-            
-            	;
+            	untilResolved: { templateUrl: 'loading.html'}}).
+            within().
+            segment('uploadimage', {
+            	templateUrl: 'image.html',
+            	controller: 'personCtrl'});
 
 });
 
@@ -53,44 +73,35 @@ app.controller('MainCtrl', function($scope, $routeSegment, loader) {
 
 app.controller('LoginController',	[ '$scope',	 '$http','$location', function($scope, $http,$location) {
 	
-	     $scope.doLogin = true;
+			$scope.doLogin = true;
+	     	$scope.userdetailsToValidate = {};
+			$scope.userValidated = false;
+			
+			$scope.friendlist = "Friend List";
 
-			 $scope.userdetailsToValidate = {};
-			 $scope.userValidated = false;
-			 $scope.errorMsg = "No Error";
-			 $scope.friendlist = "Friend List";
-
-				$scope.toggleLogin = function() {
-					$scope.doLogin = !$scope.doLogin;					
-				};
+			$scope.toggleLogin = function() {
+				$scope.doLogin = !$scope.doLogin;					
+			};
 				
-			 $scope.update = function(userdetails) {
-				 $scope.userdetailsToValidate = angular
-				 .copy(userdetails);
-			 };
+			$scope.update = function(userdetails) {
+				$scope.userdetailsToValidate = angular.copy(userdetails);
+			};
 
 			 $scope.validate = function(userdetails) {
-				 $http
-				 .get(
-						 'http://localhost:8080/RestSocialNetwork/isValidUser?username='
+				 $http.get( 'http://localhost:8080/RestSocialNetwork/isValidUser?username='
 						 + userdetails.username
 						 + '&password='
 						 + userdetails.password)
-						 .success(
-								 function(response) {
+						 .success(function(response) {
 									 $scope.errorMsg = "Login successfull";
 									 $location.path('/Main/Home');
 									 this.userId=response;
-								 })
-								 .error(
-										 function(data, status, headers,
-												 config) {
-											 $scope.errorMsg = "Request Failed"
-												 + status;
-										 });
-				 ;
+						 })
+						 .error(function(data, status, headers,config) {
+											$scope.errorMsg = "Request Failed"
+											 + status;
+								 });
 			 };
-
 			 $scope.registerUser = function(userSignUp) {
 				 $http.get( 'http://localhost:8080/RestSocialNetwork/addUserProfile?username='
 						 + userSignUp.name
