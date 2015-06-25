@@ -55,6 +55,20 @@ app.config(function ($routeSegmentProvider) {
 
 });
 
+/*app.factory("session",  ["$window", function($window)
+		  {
+		    var session =
+		      angular.fromJson($window.sessionStorage.getItem("app")) || {};
+
+		    $window.addEventListener(
+		      "beforeunload",
+		      function()
+		      {
+		        $window.sessionStorage.setItem("app", angular.toJson(session));
+		      })
+		    return session;
+ }]);*/
+
 
 app.config([ '$httpProvider', function($httpProvider) {
 	$httpProvider.defaults.useXDomain = true;
@@ -71,16 +85,15 @@ app.controller('MainCtrl', function($scope, $routeSegment, loader) {
     })
 });
 
-app.controller('LoginController',	[ '$scope',	 '$http','$location', function($scope, $http,$location) {
-	
-			$scope.doLogin = true;
-	     	$scope.userdetailsToValidate = {};
-			$scope.userValidated = false;
-			
-			$scope.friendlist = "Friend List";
-
-			$scope.toggleLogin = function() {
-				$scope.doLogin = !$scope.doLogin;					
+app.controller('LoginController',[ '$scope','$http','$location','$window', function($scope, $http,$location,$window) {
+	    $scope.doLogin = true;
+	    $scope.userdetailsToValidate = {};
+		$scope.userValidated = false;
+		$scope.friendlist = "Friend List";
+		$scope.userProfile={};
+		
+		$scope.toggleLogin = function() {
+				$scope.doLogin = !$scope.doLogin;					 
 			};
 				
 			$scope.update = function(userdetails) {
@@ -88,29 +101,34 @@ app.controller('LoginController',	[ '$scope',	 '$http','$location', function($sc
 			};
 
 			 $scope.validate = function(userdetails) {
-				 $http.get( 'http://localhost:8080/RestSocialNetwork/isValidUser?username='
-						 + userdetails.username
-						 + '&password='
-						 + userdetails.password)
-						 .success(function(response) {
-									 $scope.errorMsg = "Login successfull";
-									 $location.path('/Main/Home');
-									 this.userId=response;
-						 })
+				 $http.get('http://localhost:8080/RestSocialNetwork/isValidUser?email='
+						 							+ userdetails.email
+						 							+ '&password='
+						 							+ userdetails.password)
+						 							
+						 .success(function(response){						 
+							 if (response === '') {
+								 $scope.errorMsg ="Login Failed";
+							 } else {
+								 $window.sessionStorage.setItem('userlogged', JSON.stringify(response));
+								 $location.path('/Main/Home');
+								 $scope.userProfile=response;
+							 } 
+							 
+						 })						 
 						 .error(function(data, status, headers,config) {
 											$scope.errorMsg = "Request Failed"
 											 + status;
 								 });
 			 };
 			 $scope.registerUser = function(userSignUp) {
-				 $http.get( 'http://localhost:8080/RestSocialNetwork/addUserProfile?username='
-						 + userSignUp.name
+				 $http.get( 'http://localhost:8080/RestSocialNetwork/userSignup?username='
+						 + userSignUp.username
 						 + '&email='
 						 + userSignUp.email
 						 + '&password='
 						 + userSignUp.password)
-						 .success(
-								 function(response) {
+						 .success( function(response) {
 									 $scope.response = "Successfully Registered";
 								 })
 								 .error(
@@ -127,8 +145,9 @@ app.controller('LoginController',	[ '$scope',	 '$http','$location', function($sc
 			 $scope.reset();
 		 } ]);
 
-app.controller('TabController', ['$scope','$http','$location',function($scope, $http,$location) {
+app.controller('TabController', ['$scope','$http','$location','$window',function($scope, $http,$location,$window) {
 			this.tab = 1;
+			$scope.userLogged = angular.fromJson($window.sessionStorage.getItem("userlogged"));
 			this.setTab = function(newValue) {
 				this.tab = newValue;
 			};
@@ -142,10 +161,7 @@ app.controller('TabController', ['$scope','$http','$location',function($scope, $
 			
 		} ]);
 
-app.controller('FriendsController', [
-		'$scope',
-		'$http',
-		function($scope, $http) {
+app.controller('FriendsController', ['$scope','$http',function($scope, $http) {
 			getfriendlist = function() {
 				this.friendlst = "Invoking request";
 				$http.get('http://localhost:8080/RestSocialNetwork/friendlist')
@@ -157,13 +173,56 @@ app.controller('FriendsController', [
 		} ]);
 
 app.controller('FriendsController2', function($scope, $http) {
-	$http.get("http://localhost:8080/RestSocialNetwork/friendlist").success(
-			function(response) {
+		$http.get("http://localhost:8080/RestSocialNetwork/friendlist")
+			.success(function(response) {
 				$scope.friendlistResponse = response;
 			});
 });
 
-app.controller('CommentController',['$scope','$http',function($scope, $http) {$scope.userComment = function(statusComment, t,userName)
+app.controller('ConversationController', function($scope, $http, $window) {
+	$scope.conversation=[];
+	$scope.userLogged = angular.fromJson($window.sessionStorage.getItem("userlogged"));
+	
+			$scope.getConversation= function(user){
+				
+				$http.get("http://localhost:8080/RestSocialNetwork/listConversations?user="+user)
+					
+					.success(function(response) {
+						$scope.listConversations = response;
+					});
+			};
+			
+			$scope.getAllConversations= function(){
+				$http.get("http://localhost:8080/RestSocialNetwork/listAllConversation")
+					.success(function(response) {
+						$scope.listOfConversations = response;
+						 
+					});
+			};
+			
+			$scope.getSingleUserConversations= function(conversation_id){
+				$http.get("http://localhost:8080/RestSocialNetwork/getUserConversations?id="+conversation_id)
+					.success(function(response) {
+						$scope.UserConversations = response;
+						 
+					});
+			};
+			
+			$scope.addMessages=function(message,user1,user2){
+				/* $window.alert(user1);*/
+			$http.get("http://localhost:8080/RestSocialNetwork/addMessages?message="+message
+										+"&user1="+user1
+										+"&user2="+user2)
+				
+				.success(function(response) {
+					$scope.addMessagesResponse = response;
+					
+		});
+	};
+});
+
+app.controller('CommentController',['$scope','$http',function($scope, $http) {
+	$scope.userComment = function(statusComment, t,userName)
 	{
 			$http.get("http://localhost:8080/RestSocialNetwork/addCommentToTimeline?comment="
 														+ statusComment.comment
@@ -178,36 +237,32 @@ app.controller('CommentController',['$scope','$http',function($scope, $http) {$s
 												});
 							};
 							$scope.likeComment = function(commentid,timelineid, username) {
-								$http.get(
-										"http://localhost:8080/RestSocialNetwork/likeComment?commentid="
+								$http.get("http://localhost:8080/RestSocialNetwork/likeComment?commentid="
 												+ commentid + "&username="
 												+ username + "&timelineid="
-												+ timelineid).success(
-										function(response) {
+												+ timelineid)
+										.success(function(response) {
 											$scope.timelineResponse = response;
 										});
 							};
-
 							$scope.likeTimeline = function(timelineid, userame) {
 								$scope.timelineResponse = 'started';
 								$http.get("http://localhost:8080/RestSocialNetwork/likeTimeline?username="
 												+ username + "&timelineid="
-												+ timelineid).success(
-										function(response) {
+												+ timelineid)
+								.success(function(response) {
 											$scope.timelineResponse = response;
 										});
 							};
-							$scope.addTimeline = function(status, username) {
-								$http.get(
-												"http://localhost:8080/RestSocialNetwork/addTimeLine?status="
+							$scope.addTimeline = function(status,username){
+								$http.get("http://localhost:8080/RestSocialNetwork/addTimeLine?status="
 														+ status + "&username="
 														+ username)
-										.success(
-												function(response) {
+										.success(function(response) {
 													$http.get("http://localhost:8080/RestSocialNetwork/listAllTimeLines")
-															.success(function(response) {
-																		$scope.timelines = response;
-																	});
+														.success(function(response) {
+																$scope.timelines = response;
+															});
 												});
 							};
 
@@ -221,7 +276,7 @@ app.controller('customersCtrl', function($scope, $http) {
 });
 
 app.controller('personCtrl', function($scope) {
-	$scope.myVar1 = true
+	$scope.myVar1 = true;
 	$scope.myVar2 = true;
 	$scope.myVar3 = true;
 

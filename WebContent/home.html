@@ -1,0 +1,56 @@
+<style>
+#profile{	
+	width:71%;
+	margin-left: 2.3cm;
+	 border-radius:3px;
+}
+#home{
+	border:px solid grey;
+	border-radius:3px;
+	background-color:white;
+}
+#nav{
+	margin-left:0.5cm;
+}
+</style>
+ <div  ng-controller="TabController as panel">
+ <div class="container" >	
+	<div class="row"> 
+      	<div class="col-sm-2" id="home" style="width:20%">
+      	 	<div class="row" >
+          	 	<img src="image?name={{userLogged.profileImage}}" width="200" height="180" style="margin-left:0.4cm">
+           		<a><h4 style="margin-left:1.1cm">{{userLogged.userName}}</h4></a>
+           		<a href="#"><h5 style="margin-left:1.4cm">Edit profile</h5></a>
+           		<hr>
+  				</div>
+           		<ul class="nav nav-pills nav-stacked">
+              		 <li ng-class="{active:panel.isSelected(2)}">
+		        	<a href ng-click="panel.setTab(2);panel.showPanel('/Main/Home/Timeline')" >Post</a></li>
+              		<li ng-class="{active:panel.isSelected(3)}">
+               			<a href ng-click="panel.setTab(3);panel.showPanel('/Main/Home/Connections')">Connections</a></li>
+             	    <li ><a href="#">Messages</a></li>
+             	     <li ><a href="#">Photos</a></li>
+             	      <li ><a href="#">videos</a></li>
+             	      <div style="color:#483D8B">Groups</div>
+             	      <li ><a href="#" >Pages</a></li>
+          		</ul>
+       		</div>
+            
+             	<div id="contents" app-view-segment="2" style="margin-left:1.6cm">
+             	</div>
+             	
+             	<!-- <div class="panel panel-default" style="width:10%">
+    	          <div class="panel-heading">
+    	          <h1>this is men</h1>
+    	          </div>
+    	          </div>
+     -->
+               
+  </div>
+</div>
+            
+</div>
+ 
+ 
+			
+

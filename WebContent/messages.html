@@ -1,46 +1,78 @@
-
-<div ng-controller="FriendsController2 as FriendCtrl">
-<div class="row" style="margin-left:3cm">
-<div class="col-sm-10" id="friends_block">	
-	<div class="panel panel-default" style="width:80%">
-    	<div class="panel-heading">
-    	 <form class="form-inline" role="form">
-    		<div class="form-group">
-     			<div class="form-group has-feedback">
-                 	<label class="control-label" for="inputSuccess2" style="font-size:150%">
-                 		<span class="glyphicon glyphicon-th-list"  style="font-size:130%;color:#483D8B"></span> Connections
-                 	</label>
-               		<input type="text" class="form-control" id="inputSuccess2" 
-               		style="margin-left:5cm;margin-top:.3cm" placeholder="search connections"/>
-            		<span class="glyphicon glyphicon-search form-control-feedback" style="margin-top:.3cm"></span>
-    	 		</div>
-   			 </div>
-   		</form>
-	</div>
+<style>
 	
-
-	  <!-- <div class="row" style="margin-left:3cm">
-		<div class="col-sm-10" style="background-color:">	 -->
-		<div class="panel-body">
-    	  <div class="panel panel-default" ng-repeat="friend in friendlistResponse" >
-         	<div class="panel-heading"> 
-           	 <div class="row" style="border:px solid grey;border-radius:3px">
-             	<div class="col-md-2">
-               		<img src="image?name={{friend.image}}" width="130" height="100"/>
-             	</div>
-             <div class="col-md-10"> 
-                	<a href><h4 style="margin-left:1cm">{{ friend.friendName }}</h4></a>
-                	<h6 style="margin-left:1cm">{{ friend.livesAt }}</h6>
-                  	<h6 style="margin-left:1cm">{{ friend.worksAt }}</h6>
-                <a href class="glyphicon glyphicon-envelope" style="margin-left:1cm">Message</a>
-                 <a href class="glyphicon glyphicon-remove" style="margin-left:1cm">Remove</a>  
-        	 </div>
-        	
+</style>
+<div class="container">
+<div ng-controller="personCtrl">
+<div ng-controller="ConversationController">	
+<div class="panel panel-default" style="width:80%">
+     	<div class="panel-heading">
+           <label class="control-label" for="inputSuccess2" style="font-size:150%">
+                <span class="glyphicon glyphicon-envelope"  style="font-size:130%;color:#483D8B"></span> Conversations
+            </label> 
+            <ul class="nav nav-pills" style="margin-left:cm">
+				 <li class="active" ><a href="" ng-click="getConversation(userLogged.name); toggle1()">conversation</a></li>
+				 <li ><a href="" ng-click="toggle1()">inbox</a></li>
+				 <li ><a href="">New Message</a></li>
+				 <li><a href="" >DeleteConversation</a></li>
+			 </ul>
+             
+   		</div>  
+	
+<div class="panel-body">
+     				
+<div ng-show="!myVar1">
+        <div class="row" > 		
+        		<div ng-repeat="c in listConversations">
+        				<div class="row" > 		
+        					<div class="col-md-1" >
+        						<img src="image?name={{userLogged.image}}"width="50" height="50" style="margin-left:.5cm"></div>
+        					<div class="col-md-11" style="margin-left:">
+        						<ui class="list-inline">
+        							<li><a href ng-click="getSingleUserConversations(c.id)">{{c.user2_id}}</a></li>
+        							 <li style="margin-left:8cm">{{m.sentTime  | date:"yyyy-MM-dd HH:mm"}}6:45PM</li>
+        			  				<h5>hiiiiiiii....dear</h5>
+        			  			</ui>
+        			  		</div>
+        			 	</div>
+        				 <hr>	
+          			</div>
+          			
+            </div>  	
        </div>
-     </div>
-    </div>
-</div>		
+	
+	<div  ng-show="myVar1">
+		
+				<div  ng-repeat="m in UserConversations.messages">
+					<div class="row" > 		
+        					<div class="col-md-1" >
+        						<img src="images/raj.JPG" width="50" height="50" style="margin-left:.5cm"></div>
+        					<div class="col-md-11" style="margin-left:">
+	                   			<ui class="list-inline">
+	                   		 		<li style="font-size:100%"><a href>{{m.sender_id}} </a></li>
+	                         		 <li style="margin-left:8cm">{{m.sentTime  | date:"yyyy-MM-dd HH:mm"}}</li>
+	                         		 <li> <input type="checkbox" name="vehicle" value="Bike"></li>
+	                          		 <h5 >{{m.text}}</h5>
+	                       		</ui>
+	                       		</div>
+	                       	</div>	
+                       		<hr>
+                    	</div>
+	
+	
+			
+					<input type="text" class="form-control" style="width:90%" placeholder="Enter Name" ng-model="user2">
+					<textarea data-provide="markdown" rows="4" class="form-control custom-control"
+					style="width:100%;margin-top:0.3cm;" ng-model="message" placeholder="Text here..." ></textarea>
+						<input type="submit" name="post" class="btn btn-primary  btn-sm" style="margin:3px 0px 0px 350px;"
+							ng-click="addMessages(message,userLogged.name,user2)">
+       	</div>
+       				
+ 
+       			
 </div>
 </div>
 </div>
-</div> 
+</div>
+</div>
+
+

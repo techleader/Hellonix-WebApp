@@ -1,0 +1,224 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>About </title>
+<style>
+body{
+   background-color:#255C75;
+}
+#input{
+	width:40%;
+	margin-left:1cm;
+}
+</style>
+</head>
+<div ng-controller="personCtrl" style="margin-left:5cm">
+<div ng-controller="LoginController">
+
+	<div ng-show="myVar1"> 
+	   	<div class="panel panel-default" style="width:70%">
+      		<div class="panel-heading"><b>Additional info</b>
+      			<a href class="glyphicon glyphicon-pencil" style="margin-left:12cm;" ng-click="toggle1()">Edit</a>
+      		</div>
+      		<div class="panel-body">
+      			<table class="table">
+				    <thead>
+				      <tr>
+				        <th>BASIC INFORMATION</th>
+				        <th></th>
+				        
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td>Date of Birth</td>
+				        <td>25-6-1991</td>
+				      
+				      </tr>
+				      <tr>
+				        <td>Address</td>
+				        <td>Hanumangrah junction</td>
+				        
+				      </tr>
+				      <tr>
+				        <td>State</td>
+				        <td>Rajasthan</td>
+				      
+				      </tr>
+				    </tbody>
+				    <thead>
+				      <tr>
+				        <th>CONTACT INFORMATION</th>
+				       <th></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td>MOBILE</td>
+				        <td>8003050064</td>
+				     </tr>
+				     <tr>
+				        <td>Email-ID</td>
+				        <td>rajnayak91@gmail.com</td>
+				     </tr>
+				   
+				    </tbody>
+				 </table>
+			</div>
+    </div>
+    </div>
+    <div ng-show="!myVar1"> 	 
+	   <div class="panel panel-default" style="width: 70%">
+			<div class="panel-heading">
+     	 	<h3 class="panel-title"><b>Addtional Information</b></h3>
+   		</div><br>
+			 <form class="form-inline" role="form">
+			  	 <label for="text" style="margin-left:0.4cm">Age:</label>
+     			 <input type="text" class="form-control"  placeholder="age" >
+      			 <label for="text">Birthday:</label>
+      			 <input type="text" class="form-control"   placeholder="date of birth">
+ 				</form><br>
+				<input type="text" class="form-control"  id="input"  placeholder=" Address"><br>
+				<input type="text" class="form-control" id="input"  placeholder=" city"><br>
+				<input type="text" class="form-control" id="input"  placeholder="State"><br>
+					 <div class="panel-footer">
+			<button type="button" class="btn btn-primary" style="margin-left:1cm" ng-click="toggle1()">Save</button>
+			<button type="button" class="btn btn-primary" style="margin-left:1cm" ng-click="toggle1()">cancel</button>
+		</div>
+	 </div>
+	</div>
+	<div ng-show="myVar2">      
+	 <div class="panel panel-default" style="width: 70%">
+      		<div class="panel-heading"><b>Education & Skills</b>
+      			<a href class="glyphicon glyphicon-pencil" style="margin-left:12cm;" ng-click="toggle2()">Edit</a>
+      		</div>
+      		<div class="panel-body">
+      			<table class="table">
+				    <thead>
+				      <tr>
+				        <th>EDUCATION</th>
+				        <th></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td>College</td>
+				        <td>unversity of kota</td>
+				        
+				      </tr>
+				      <tr>
+				        <td>degree</td>
+				        <td>MCA</td>
+				        
+				      </tr>
+				      <tr>
+				        <td>Field Of Study</td>
+				        <td>Information technology</td>
+				       
+				      </tr>
+				      <tr>
+				        <td>Activites</td>
+				        <td>working on social website</td>
+				       
+				      </tr>
+				    </tbody>
+				    <thead>
+				      <tr>
+				        <th>PROFESSIONAL SKILLS</th>
+				        <th></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr>
+				        <td>Top Skills</td>
+				        <td> java,html,css,angularjs</td>
+				        
+				      </tr>
+						<tr>
+				        <td>Basic Knowledge</td>
+				        <td> Something</td>
+				        
+				      </tr>
+				    
+				  </table>
+			</div>
+    </div>
+    </div>
+    <div ng-show="!myVar2">      
+	 <div class="panel panel-default" style="width: 70%">
+	 	<div class="panel-heading">
+     	 	<h3 class="panel-title"><b>Education & Skills</b></h3>
+   		</div>
+   		<h3 style="margin-left:1cm"><b>Education</b></h3>
+		<input type="text" class="form-control" id="input" placeholder=" College"><br>
+		<input type="text" class="form-control" id="input"  placeholder="Degree"><br>
+		<input type="text" class="form-control"  id="input"  placeholder="Field of study"><br>
+		<input type="text" class="form-control"  id="input"  placeholder="Activites"><br>
+		<h3 style="margin-left:1cm"><b>Professional Skills</b></h3>
+		<input type="text" class="form-control"  id="input"  placeholder="top Skills"><br>
+		<input type="text" class="form-control"  id="input"  placeholder="Basic knowledge"><br>
+		 <div class="panel-footer">
+			<button type="button" class="btn btn-primary" style="margin-left:12cm" ng-click="toggle2()">Save</button>
+			<button type="button" class="btn btn-primary" style="margin-left:0.6cm" ng-click="toggle2()">cancel</button>
+		</div>
+	</div>
+	</div>
+	
+	 <div ng-show="myVar3">      
+	  <div class="panel panel-default" style="width: 70%">
+      		<div class="panel-heading"><b>WORK</b>
+      			<a href class="glyphicon glyphicon-pencil" style="margin-left:12cm;" ng-click="toggle3()">Edit</a>
+      		</div>
+      		<div class="panel-body">
+      			<table class="table">
+				    <thead>
+				      <tr>
+				        <th>Work Place</th>
+				        <th></th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				     <tr>
+				        <td>COMPANY</td>
+				        <td>Halonix Soft Pvt. Ltd.</td>
+				        
+				      </tr>
+				      <tr>
+				        <td>Position</td>
+				        <td>Manager</td>
+				        
+				      </tr>
+				      <tr>
+				        <td>city/town</td>
+				        <td>Mumbai</td>
+				       
+				      </tr>
+				      <tr>
+				        <td>Project</td>
+				        <td>working on social website</td>
+				       
+				      </tr>
+				    </tbody>
+				  </table>
+			</div>
+    </div>
+	</div>
+	<div ng-show="!myVar3">      
+	 <div class="panel panel-default" style="width: 70%">
+		<div class="panel-heading">
+     	 	<h3 class="panel-title"><b>WorkPlace</b></h3>
+   		</div>
+		<input type="text" class="form-control" id="input" placeholder="Comapny"><br>
+		<input type="text" class="form-control" id="input"  placeholder="Position"><br>
+		<input type="text" class="form-control"  id="input"  placeholder="city"><br>
+		
+		 <div class="panel-footer">
+			<button type="button" class="btn btn-primary" style="margin-left:12cm" ng-click="toggle3()">Save</button>
+			<button type="button" class="btn btn-primary" style="margin-left:.6cm" ng-click="toggle3()">cancel</button>
+		</div>
+	</div>
+	</div>
+	
+	 
+		
+</div>
+</div>

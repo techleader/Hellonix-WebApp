@@ -1,0 +1,99 @@
+body{
+	background-image:url(../images/login_bg.jpg);
+	color:LightGoldenRodYellow  ;
+	font-size:23px;
+}
+
+#header {
+    border:1px solid grey;
+    background-color:black;
+    color:lightsteelblue;
+    text-align:center;
+    padding:10px;
+    font-size: 50px;
+}
+#abc{
+	
+}
+{
+	float: right;
+	margin top: 10cm;
+	padding: 20px;
+	width: 400px;
+	height: 100px;
+	color: DeepSkyBlue;
+	font-size: 30px;
+}
+
+.right {
+    position: absolute;
+  	right :40px;
+    width: 700px; 
+    color: red;
+    font-size: 20px;
+    
+}
+}
+ 
+div {
+    padding: 7px;	
+    width: 250px;
+    height:140px;
+    margin-left: 24cm;
+    margin-top: 1cm;
+	font-size:15px;
+	
+}
+form fieldset input[type="text"], input[type="password"] {
+	background-color: #e5e5e5;
+	border:none;
+	border-radius:2px;
+	color:black;
+	font-size: 12px;
+	
+	height: 25px;
+	width: 250px;
+	padding: 2px;
+}
+form fieldset input[type="submit"] {
+	background-color: #008dde;
+	border:none;
+	border-radius: 2px;
+	color: #f4f4f4;
+	cursor: pointer;
+	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+	height: 40px;
+	width: 100px;
+	text-transform: uppercase;
+
+}
+
+
+P{
+	
+   	margin-top:1%;
+	margin-bottom:4%;
+	border:none;
+	border-radius: 2px;
+	color: white;
+	font-size:15px;
+}
+a{
+	
+	margin-left: 1cm;
+	text-decoration: none;
+	color: white;
+}
+a:hover{text-decoration: underline;}
+
+# fieldset1{
+	width:100px;
+}
+.login{
+	padding: 0 4px;
+}
+#welcome{
+	font-size:35px;
+	color:White;
+	margin-left:2cm;
+}
